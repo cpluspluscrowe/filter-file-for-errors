@@ -9,9 +9,10 @@
 
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Filter for [ERROR] in the file"
   [& args]
   (def lines (clojure.string/split (slurp "yarnContainerDetails.txt") #"\n"))
-  (def error-lines (filter contains-error lines))
-  (println error-lines)
-  (println "Hello, World!"))
+  (def error-lines (set (filter contains-error lines)))
+  (def joined-errors (str/join "\n" error-lines))
+  (spit "errors.txt" joined-errors)
+)
